@@ -1,0 +1,176 @@
+[
+    {
+        "label": "requests",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "requests",
+        "description": "requests",
+        "detail": "requests",
+        "documentation": {}
+    },
+    {
+        "label": "dash",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "dash",
+        "description": "dash",
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "dcc",
+        "importPath": "dash",
+        "description": "dash",
+        "isExtraImport": true,
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "html",
+        "importPath": "dash",
+        "description": "dash",
+        "isExtraImport": true,
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "Input",
+        "importPath": "dash",
+        "description": "dash",
+        "isExtraImport": true,
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "Output",
+        "importPath": "dash",
+        "description": "dash",
+        "isExtraImport": true,
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "State",
+        "importPath": "dash",
+        "description": "dash",
+        "isExtraImport": true,
+        "detail": "dash",
+        "documentation": {}
+    },
+    {
+        "label": "plotly.graph_objects",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "plotly.graph_objects",
+        "description": "plotly.graph_objects",
+        "detail": "plotly.graph_objects",
+        "documentation": {}
+    },
+    {
+        "label": "os",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "os",
+        "description": "os",
+        "detail": "os",
+        "documentation": {}
+    },
+    {
+        "label": "load_dotenv",
+        "importPath": "dotenv",
+        "description": "dotenv",
+        "isExtraImport": true,
+        "detail": "dotenv",
+        "documentation": {}
+    },
+    {
+        "label": "logging",
+        "kind": 6,
+        "isExtraImport": true,
+        "importPath": "logging",
+        "description": "logging",
+        "detail": "logging",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_weather_data_by_coords",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def fetch_weather_data_by_coords(lat, lon, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/geoposition/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": f\"{lat},{lon}\"}\n    logging.info(f\"Requesting location data with params: {location_params}\")\n    location_response = requests.get(location_url, params=location_params)\n    logging.info(f\"Location response: {location_response.status_code} - {location_response.text}\")\n    if location_response.status_code != 200:\n        return None\n    location_data = location_response.json()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "fetch_weather_data_by_city",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def fetch_weather_data_by_city(city_name, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": city_name}\n    logging.info(f\"Requesting location data with params: {location_params}\")\n    location_response = requests.get(location_url, params=location_params)\n    logging.info(f\"Location response: {location_response.status_code} - {location_response.text}\")\n    if location_response.status_code != 200:\n        return None\n    location_data = location_response.json()",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "add_waypoint_fields",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def add_waypoint_fields(n_clicks, children):\n    new_point = html.Div(\n        [\n            dcc.Input(\n                type=\"text\",\n                placeholder=\"Название города (необязательно)\",\n                id={\"type\": \"city\", \"index\": n_clicks},\n            ),\n            dcc.Input(\n                type=\"number\",",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "update_weather",
+        "kind": 2,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "def update_weather(n_clicks, cities, latitudes, longitudes, days):\n    if n_clicks == 0:\n        return go.Figure(), \"\"\n    weather_data = []\n    for city, lat, lon in zip(cities, latitudes, longitudes):\n        if city:\n            data = fetch_weather_data_by_city(city, days)\n        elif lat is not None and lon is not None:\n            data = fetch_weather_data_by_coords(lat, lon, days)\n        else:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "API_KEY",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "API_KEY = os.getenv(\"ACCUWEATHER_API_KEY\")\nBASE_URL = \"http://dataservice.accuweather.com\"\nlogging.basicConfig(level=logging.INFO)\napp = dash.Dash(__name__)\nserver = app.server\ndef fetch_weather_data_by_coords(lat, lon, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/geoposition/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": f\"{lat},{lon}\"}\n    logging.info(f\"Requesting location data with params: {location_params}\")",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "BASE_URL",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "BASE_URL = \"http://dataservice.accuweather.com\"\nlogging.basicConfig(level=logging.INFO)\napp = dash.Dash(__name__)\nserver = app.server\ndef fetch_weather_data_by_coords(lat, lon, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/geoposition/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": f\"{lat},{lon}\"}\n    logging.info(f\"Requesting location data with params: {location_params}\")\n    location_response = requests.get(location_url, params=location_params)",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app = dash.Dash(__name__)\nserver = app.server\ndef fetch_weather_data_by_coords(lat, lon, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/geoposition/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": f\"{lat},{lon}\"}\n    logging.info(f\"Requesting location data with params: {location_params}\")\n    location_response = requests.get(location_url, params=location_params)\n    logging.info(f\"Location response: {location_response.status_code} - {location_response.text}\")\n    if location_response.status_code != 200:",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "server",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "server = app.server\ndef fetch_weather_data_by_coords(lat, lon, days):\n    location_url = f\"{BASE_URL}/locations/v1/cities/geoposition/search\"\n    forecast_url = f\"{BASE_URL}/forecasts/v1/daily/{days}day/\"\n    location_params = {\"apikey\": API_KEY, \"q\": f\"{lat},{lon}\"}\n    logging.info(f\"Requesting location data with params: {location_params}\")\n    location_response = requests.get(location_url, params=location_params)\n    logging.info(f\"Location response: {location_response.status_code} - {location_response.text}\")\n    if location_response.status_code != 200:\n        return None",
+        "detail": "main",
+        "documentation": {}
+    },
+    {
+        "label": "app.layout",
+        "kind": 5,
+        "importPath": "main",
+        "description": "main",
+        "peekOfCode": "app.layout = html.Div(\n    [\n        html.H1(\"Прогноз погоды для вашего маршрута\"),\n        html.Div(\n            [\n                html.Label(\"Добавить точки маршрута (название города или широта, долгота):\"),\n                html.Button(\"Добавить точку\", id=\"add-point\", n_clicks=0),\n                html.Div(id=\"waypoints-container\", children=[]),\n            ],\n            style={\"margin-bottom\": \"20px\"},",
+        "detail": "main",
+        "documentation": {}
+    }
+]
